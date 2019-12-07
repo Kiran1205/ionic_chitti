@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title >
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+      <ion-item (click)="GotoPeople()">
+          <ion-badge slot="start">09</ion-badge>      
+          <ion-label>5L Chitti</ion-label>
+          <ion-badge slot="end" color="success">11</ion-badge>        
+      </ion-item>
+      
+    
+      <ion-item>
+           <ion-badge slot="start">19</ion-badge> 
+          <ion-label>3L Chitti</ion-label>                    
+          <ion-badge slot="end" color="success">8</ion-badge>   
+      </ion-item>
+  </ion-list>
+    
+       
+
+     <!-- adding button  -->
+  <ion-fab  horizontal="end" >
+    <ion-fab-button (click)="gotochitti()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> 
+   
+</ion-content>
