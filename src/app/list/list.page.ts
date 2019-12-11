@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +21,8 @@ export class ListPage implements OnInit {
     'build'
   ];
   public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
+  constructor(private nav:NavController,
+    public menuCtrl: MenuController) {
     for (let i = 1; i < 11; i++) {
       this.items.push({
         title: 'Item ' + i,
@@ -30,6 +32,8 @@ export class ListPage implements OnInit {
     }
   }
 
+  
+ 
   ngOnInit() {
   }
   // add back when alpha.4 is out

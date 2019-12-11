@@ -9,22 +9,28 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ListPage } from './list/list.page';
-import { HomePage } from './home/home.page';
 import { ChittiPage } from './chitti/chitti.page';
 import { PeoplePage } from './people/people.page';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterPage } from './register/register.page';
+import { LoginPage } from './login/login.page';
+import { HomePage } from './home/home.page';
+
 
 @NgModule({
   declarations: [AppComponent,
-    HomePage,
     ListPage,
     ChittiPage,
-    PeoplePage],
-  entryComponents: [HomePage,
-    ListPage,
-    ChittiPage,
-    PeoplePage],
+    PeoplePage,
+    LoginPage,
+    RegisterPage,
+    HomePage
+    ],
+  entryComponents: [],
   imports: [
     BrowserModule,
+    FormsModule, 
+    ReactiveFormsModule,
     IonicModule.forRoot(),
     AppRoutingModule
   ],
@@ -33,6 +39,6 @@ import { PeoplePage } from './people/people.page';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  bootstrap: [AppComponent,HomePage,ListPage]
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
