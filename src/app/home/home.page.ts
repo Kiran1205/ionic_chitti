@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   }
 
   ionViewDidEnter() {
-    console.log("Enter");
+    
     this.menuCtrl.enable(true);
   }
   
