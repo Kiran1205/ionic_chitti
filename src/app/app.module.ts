@@ -15,6 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterPage } from './register/register.page';
 import { LoginPage } from './login/login.page';
 import { HomePage } from './home/home.page';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './services/UserService.service';
+
 
 
 @NgModule({
@@ -30,11 +33,13 @@ import { HomePage } from './home/home.page';
   imports: [
     BrowserModule,
     FormsModule, 
-    ReactiveFormsModule,
+    ReactiveFormsModule,   
     IonicModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
+    UserService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

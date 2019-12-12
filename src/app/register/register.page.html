@@ -31,7 +31,7 @@
               <ion-label position="floating">Password *</ion-label>
               <ion-input  class="form-control" formControlName="password"></ion-input>
           </ion-item>   
-          <ion-button expand="full" color="secondary" (click)="SaveUser()" [disabled]="!registerform.valid">Save</ion-button> 
+          <ion-button expand="full" color="secondary" (click)="onRegister()" [disabled]="!registerform.valid">Save</ion-button> 
         
     </form>  
 </ion-content>

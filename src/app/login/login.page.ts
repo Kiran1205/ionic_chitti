@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, MenuController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -11,8 +12,9 @@ export class LoginPage implements OnInit {
 
   constructor( public formBuilder: FormBuilder,
                private nav:NavController,
-               public menuCtrl: MenuController) {
-
+               public menuCtrl: MenuController,
+               ) {
+               
     }
 
   loginform: FormGroup;
