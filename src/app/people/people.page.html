@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="secondary">
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
           </ion-buttons>
@@ -8,5 +8,33 @@
 </ion-header>
 
 <ion-content>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     
+      <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+          <ion-fab-button color="secondary">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="top">
+            <ion-fab-button color="light">
+              <ion-icon name="contacts"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light">
+              <ion-icon name="card"></ion-icon>
+            </ion-fab-button>            
+          </ion-fab-list>
+        </ion-fab>
+
+      <ion-list>
+        <ion-item *ngFor="let item of items">
+        <ion-avatar slot="start">
+          <img src="./assets/avatar.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{item}}</h2>
+          <h3>Look, kid...</h3>
+          <p>I've got enough on my plate as it is, and I...</p>
+        </ion-label>
+      </ion-item>     
+    </ion-list>
+
 </ion-content>

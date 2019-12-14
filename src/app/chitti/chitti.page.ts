@@ -17,6 +17,8 @@ export class ChittiPage implements OnInit {
 
   chittiform: FormGroup;
 
+  public items: Array<{ title: string; note: string; icon: string }> = [];
+  
   ngOnInit() {
     this.chittiform = this.formBuilder.group({
       Name: ['',Validators.required],

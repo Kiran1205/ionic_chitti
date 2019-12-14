@@ -20,8 +20,8 @@ export class LoginPage implements OnInit {
   loginform: FormGroup;
   ngOnInit() {
     this.loginform = this.formBuilder.group({     
-      phonenumber: ['',Validators.required],
-      password : ['',Validators.required]
+      phonenumber: ['8884684500',Validators.required],
+      password : ['kiran@1234',Validators.required]
     });
   }
 
