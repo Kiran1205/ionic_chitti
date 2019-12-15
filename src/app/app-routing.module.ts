@@ -33,7 +33,10 @@ const routes: Routes = [
   {
     path: 'home',component:HomePage
   },
-  
+  {
+    path: 'ppaidhistory',
+    loadChildren: () => import('./ppaidhistory/ppaidhistory.module').then( m => m.PpaidhistoryPageModule)
+  }
 ];
 
 @NgModule({

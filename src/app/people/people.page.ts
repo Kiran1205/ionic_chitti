@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-people',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class PeoplePage implements OnInit {
   items: string[];
 
-  constructor() { 
+  constructor(private nav:NavController) { 
     this.initializeItems() ;
   }
   initializeItems() {
@@ -36,5 +37,9 @@ export class PeoplePage implements OnInit {
         return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
+  }
+
+  paymenthistory(){
+    this.nav.navigateForward('ppaidhistory');
   }
 }

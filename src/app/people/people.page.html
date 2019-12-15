@@ -25,15 +25,16 @@
         </ion-fab>
 
       <ion-list>
-        <ion-item *ngFor="let item of items">
+        <ion-item *ngFor="let item of items" (click)="paymenthistory()">
         <ion-avatar slot="start">
           <img src="./assets/avatar.png">
         </ion-avatar>
-        <ion-label>
-          <h2>{{item}}</h2>
-          <h3>Look, kid...</h3>
-          <p>I've got enough on my plate as it is, and I...</p>
-        </ion-label>
+        <ion-label>      
+          <ion-label color="secondary">{{item}}</ion-label> 
+          <ion-label color="medium">8884684500</ion-label>                 
+        </ion-label>      
+        <ion-badge slot="end" color="success">11</ion-badge>
+        <ion-badge slot="end" color="warning">11</ion-badge>
       </ion-item>     
     </ion-list>
 
