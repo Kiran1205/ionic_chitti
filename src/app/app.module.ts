@@ -17,7 +17,7 @@ import { LoginPage } from './login/login.page';
 import { HomePage } from './home/home.page';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/UserService.service';
-
+import { Contacts } from '@ionic-native/contacts';
 
 
 @NgModule({
@@ -40,6 +40,7 @@ import { UserService } from './services/UserService.service';
   ],
   providers: [
     UserService,
+    Contacts,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

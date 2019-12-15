@@ -9,15 +9,14 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-badge  slot="start" color={{item.color}}>Jan</ion-badge>      
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
-    </ion-item>
-  </ion-list>
-
+    <ion-item *ngFor="let item of items" (click)="paymenthistory()">
+      <ion-badge  slot="start" color={{item.color}}>Jan</ion-badge>  
+    <ion-label>      
+      <ion-label color="secondary">{{item.title}}</ion-label> 
+      <ion-label color="medium"> {{item.note}}</ion-label>                 
+    </ion-label>           
+  </ion-item>     
+</ion-list>
 
 
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">

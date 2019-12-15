@@ -36,7 +36,7 @@ export class HomePage implements OnInit {
   }
 
   ChittiClick(data){
-    console.log(data.name);
+    
     this.nav.navigateForward('people');
   }
   

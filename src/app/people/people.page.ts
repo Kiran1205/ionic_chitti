@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
+import { Contact, Contacts,ContactName, ContactField  } from '@ionic-native/contacts';
 
 @Component({
   selector: 'app-people',
@@ -8,10 +9,25 @@ import { NavController } from '@ionic/angular';
 })
 export class PeoplePage implements OnInit {
   items: string[];
+  name: any;
+  phonenumber: any;
 
-  constructor(private nav:NavController) { 
+  constructor(private nav:NavController,
+    private contacts: Contacts,
+    public alertController: AlertController) { 
     this.initializeItems() ;
   }
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: this.name,
+      message: this.phonenumber,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
   initializeItems() {
     this.items = [
       'Islamabad',
@@ -41,5 +57,15 @@ export class PeoplePage implements OnInit {
 
   paymenthistory(){
     this.nav.navigateForward('ppaidhistory');
+  }
+  openContacts(){
+    console.log("test");
+    this.contacts.pickContact()
+    .then((test : Contact) =>{
+        this.name = test.displayName;
+        this.phonenumber = test.phoneNumbers[0].value        
+       this. presentAlert();
+    });
+
   }
 }
