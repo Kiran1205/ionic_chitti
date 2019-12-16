@@ -8,15 +8,14 @@ import { NavController, MenuController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
-  public items: Array<{ id:number,name: string; pendinngchitti: number; completedchitti:number }> = [];
+  public items: Array<{ id:number,name: string;  completedchitti:number }> = [];
   
   constructor(private nav:NavController,
     public menuCtrl: MenuController) {
 
       for (let i = 1; i < 5; i++) {
         this.items.push({
-          name: 'Item ' + i,
-          pendinngchitti:i,
+          name: 'Item ' + i,         
           completedchitti:  20-i,
           id : i
         });

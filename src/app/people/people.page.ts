@@ -64,7 +64,7 @@ export class PeoplePage implements OnInit {
     .then((test : Contact) =>{
         this.name = test.displayName;
         this.phonenumber = test.phoneNumbers[0].value        
-       this. presentAlert();
+        this. presentAlert();
     });
 
   }

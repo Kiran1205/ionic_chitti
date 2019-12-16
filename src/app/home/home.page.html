@@ -13,11 +13,14 @@
     <ion-list>
         <ion-item *ngFor="let item of items" (click)="ChittiClick(item)"> 
           <ion-label>
-          <ion-label color="secondary">{{item.name}}</ion-label> 
+          <ion-label>{{item.name}}</ion-label>
+          
           <ion-label color="medium">8884684500</ion-label>   
-        </ion-label>          
-            <ion-badge slot="end" color="warning">{{item.pendinngchitti}}</ion-badge>  
-          <ion-badge slot="end" color="success">{{item.completedchitti}}</ion-badge>
+        </ion-label>         
+           
+            <ion-chip slot="end" outline color="secondary">
+              <ion-label>{{item.completedchitti}}</ion-label>
+            </ion-chip>
         </ion-item>
       </ion-list>
 
