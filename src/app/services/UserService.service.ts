@@ -14,6 +14,9 @@ export class UserService extends BaseHttpService{
     create(data : any):Observable<any>    {
         return this.post('create',data,this.COMMON_JSON_HEADER_REQUEST);
     }
-    
+
+    login(data : any):Observable<any>    {
+        return this.post('authenticate',data,this.COMMON_JSON_HEADER_REQUEST);
+    }
     
 }

@@ -9,7 +9,7 @@ import { NavController, MenuController } from '@ionic/angular';
 export class HomePage implements OnInit {
 
   public items: Array<{ id:number,name: string;  completedchitti:number }> = [];
-  
+  username : any;
   constructor(private nav:NavController,
     public menuCtrl: MenuController) {
 
@@ -28,14 +28,14 @@ export class HomePage implements OnInit {
 
   ionViewDidEnter() {    
     this.menuCtrl.enable(true);
+    this.username = localStorage.getItem("UserName");
   }
 
   GoToNewChitti(){
     this.nav.navigateForward('chitti');
   }
 
-  ChittiClick(data){
-    
+  ChittiClick(data){    
     this.nav.navigateForward('people');
   }
   

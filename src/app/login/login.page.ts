@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, MenuController } from '@ionic/angular';
+import { NavController, MenuController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../services/UserService.service';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -13,27 +15,53 @@ export class LoginPage implements OnInit {
   constructor( public formBuilder: FormBuilder,
                private nav:NavController,
                public menuCtrl: MenuController,
+               public userservice : UserService,
+               public toastController: ToastController
                ) {
                
     }
 
   loginform: FormGroup;
   ngOnInit() {
-    this.loginform = this.formBuilder.group({     
-      phonenumber: ['8884684500',Validators.required],
-      password : ['kiran@1234',Validators.required]
+    this.loginform = this.formBuilder.group({          
+      phonenumber: ['',Validators.compose([Validators.maxLength(10),Validators.minLength(10),Validators.pattern('[0-9]*'),Validators.required])],
+      password : ['',Validators.compose([Validators.minLength(6),Validators.required])]    
     });
   }
 
 
-  ionViewDidEnter() {
-    console.log("Enter");
+  ionViewDidEnter() {    
     this.menuCtrl.enable(false);
     this.menuCtrl.swipeGesture(false);
   }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'login failed,please try again.',
+      duration: 2000
+    });
+    toast.present();
+  }
   
   GoToHome(){
-    this.nav.navigateForward("home");
+
+        if(!this.loginform.valid)
+        return;
+        
+        this.userservice.login(this.loginform.value).subscribe((result : any ) =>{
+       
+          localStorage.clear();
+
+          localStorage.setItem("UserPID", result.userPID);
+          localStorage.setItem("UserName", result.name);
+
+          this.nav.navigateForward("home");
+        
+      },(respo : HttpResponse<any>) => {      
+               this.presentToast();
+      });
+
+    
   }
 
   gotoregister(){

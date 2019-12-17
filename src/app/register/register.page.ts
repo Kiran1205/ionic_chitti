@@ -23,15 +23,15 @@ export class RegisterPage implements OnInit {
 
     ngOnInit() {
       this.registerform = this.formBuilder.group({
-        Name: ['',Validators.required],
-        phonenumber: ['',Validators.required],
-        password : ['',Validators.required]
+        Name: ['',Validators.compose([Validators.minLength(5),Validators.required])],
+        phonenumber: ['',Validators.compose([Validators.maxLength(10),Validators.minLength(10),Validators.pattern('[0-9]*'),Validators.required])],
+        password : ['',Validators.compose([Validators.minLength(6),Validators.required])]
       });
     }
     
     async presentToast() {
       const toast = await this.toastController.create({
-        message: 'user created.',
+        message: 'Unabe to Process request',
         duration: 2000
       });
       toast.present();
@@ -39,15 +39,16 @@ export class RegisterPage implements OnInit {
 
     onRegister(){
       this.userservice.create(this.registerform.value).subscribe((result : any ) =>{       
-         
-        
+         localStorage.clear();
+         localStorage.setItem("UserPID", result.userPID);
+         localStorage.setItem("UserName", result.name);
+
       },(error : HttpResponse<any>) => {         
-            console.log("Unabe to Process request");          
+            this.presentToast();          
       });
     }
 
-  ionViewDidEnter() {
- 
+  ionViewDidEnter() { 
     this.menuCtrl.enable(false);
     this.menuCtrl.swipeGesture(false);
   }
