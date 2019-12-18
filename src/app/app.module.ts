@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ListPage } from './list/list.page';
@@ -18,7 +16,8 @@ import { HomePage } from './home/home.page';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/UserService.service';
 import { Contacts } from '@ionic-native/contacts';
-
+import { CommonModule } from '@angular/common';
+import { ChittiService } from './services/ChittiService.service';
 
 @NgModule({
   declarations: [AppComponent,
@@ -32,6 +31,7 @@ import { Contacts } from '@ionic-native/contacts';
   entryComponents: [],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule, 
     ReactiveFormsModule,   
     IonicModule.forRoot(),
@@ -40,6 +40,7 @@ import { Contacts } from '@ionic-native/contacts';
   ],
   providers: [
     UserService,
+    ChittiService,
     Contacts,
     StatusBar,
     SplashScreen,

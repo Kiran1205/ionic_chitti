@@ -24,7 +24,10 @@ export class RegisterPage implements OnInit {
     ngOnInit() {
       this.registerform = this.formBuilder.group({
         Name: ['',Validators.compose([Validators.minLength(5),Validators.required])],
-        phonenumber: ['',Validators.compose([Validators.maxLength(10),Validators.minLength(10),Validators.pattern('[0-9]*'),Validators.required])],
+        phonenumber: ['',Validators.compose(
+          [Validators.maxLength(10),
+            Validators.minLength(10),
+            Validators.pattern('[0-9]*'),Validators.required])],
         password : ['',Validators.compose([Validators.minLength(6),Validators.required])]
       });
     }

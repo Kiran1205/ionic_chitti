@@ -1,34 +1,59 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, MenuController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+import { ChittiService } from '../services/ChittiService.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
+  
 })
 export class HomePage implements OnInit {
 
   public items: Array<{ id:number,name: string;  completedchitti:number }> = [];
   username : any;
+  UserPID : any;
+  chittisdetail : any;
   constructor(private nav:NavController,
-    public menuCtrl: MenuController) {
+    private menuCtrl: MenuController,
+    private loadingController: LoadingController,
+    private chittiService : ChittiService
+    ) {
 
-      for (let i = 1; i < 5; i++) {
-        this.items.push({
-          name: 'Item ' + i,         
-          completedchitti:  20-i,
-          id : i
-        });
-      }
+      this.UserPID = localStorage.getItem("UserPID");
+      this.username = localStorage.getItem("UserName");
 
-}
+    }
 
   ngOnInit() {
-  }
 
-  ionViewDidEnter() {    
+  }
+   async chittihomepageloading(){
+
+    const loader =  await this.loadingController.create({
+      message: 'Please wait...',
+      spinner: 'dots'
+    });
+
+    await loader.present().then( () => {
+      this.chittiService.getChittis(this.UserPID).subscribe((result) => {
+        this.chittisdetail = result;
+        loader.dismiss();
+      },(error : HttpResponse<any>) => {         
+       console.log(error);         
+      });
+
+    });
+
+   }
+
+   ionViewDidEnter() {    
+
+    this.chittihomepageloading();
     this.menuCtrl.enable(true);
-    this.username = localStorage.getItem("UserName");
+    
   }
 
   GoToNewChitti(){

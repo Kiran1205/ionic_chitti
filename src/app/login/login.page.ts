@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/UserService.service';
 import { HttpResponse } from '@angular/common/http';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -22,9 +21,13 @@ export class LoginPage implements OnInit {
     }
 
   loginform: FormGroup;
+  
   ngOnInit() {
     this.loginform = this.formBuilder.group({          
-      phonenumber: ['',Validators.compose([Validators.maxLength(10),Validators.minLength(10),Validators.pattern('[0-9]*'),Validators.required])],
+      phonenumber: ['',Validators.compose(
+        [Validators.maxLength(10),
+          Validators.minLength(10),
+          Validators.pattern('[0-9]*'),Validators.required])],
       password : ['',Validators.compose([Validators.minLength(6),Validators.required])]    
     });
   }
@@ -57,7 +60,7 @@ export class LoginPage implements OnInit {
 
           this.nav.navigateForward("home");
         
-      },(respo : HttpResponse<any>) => {      
+      },() => {      
                this.presentToast();
       });
 

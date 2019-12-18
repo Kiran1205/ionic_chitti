@@ -5,19 +5,18 @@ import { Observable } from 'rxjs';
 
 
 @Injectable()
-export class UserService extends BaseHttpService{
+export class ChittiService extends BaseHttpService{
 
     constructor(private httpClient : HttpClient){
         super(httpClient);
-        this.baseRoute ='user'
-    }
-
-    create(data : any):Observable<any>{
-        return this.post('create',data,this.COMMON_JSON_HEADER_REQUEST);
-    }
+        this.baseRoute ='chitti'
+    }  
 
     login(data : any):Observable<any> {
         return this.post('authenticate',data,this.COMMON_JSON_HEADER_REQUEST);
     }
+    getChittis(id : number)    {
+        return this.get(`${id}`,this.COMMON_JSON_HEADER_REQUEST);
+    }   
     
 }
