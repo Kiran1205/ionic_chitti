@@ -33,7 +33,8 @@ export class LoginPage implements OnInit {
   }
 
 
-  ionViewDidEnter() {    
+  ionViewDidEnter() {  
+    localStorage.clear();  
     this.menuCtrl.enable(false);
     this.menuCtrl.swipeGesture(false);
   }
@@ -51,9 +52,8 @@ export class LoginPage implements OnInit {
         if(!this.loginform.valid)
         return;
         
-        this.userservice.login(this.loginform.value).subscribe((result : any ) =>{
-       
-          localStorage.clear();
+        this.userservice.login(this.loginform.value).subscribe((result : any ) =>{      
+          
 
           localStorage.setItem("UserPID", result.userPID);
           localStorage.setItem("UserName", result.name);

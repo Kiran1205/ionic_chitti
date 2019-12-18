@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { Contact, Contacts,ContactName, ContactField  } from '@ionic-native/contacts';
 import { ActivatedRoute } from '@angular/router';
+import { PeopleService } from '../services/PeopleService.service';
 
 @Component({
   selector: 'app-people',
@@ -13,15 +14,25 @@ export class PeoplePage implements OnInit {
   name: any;
   phonenumber: any;
   chittidetails : any;
+  userpid :any;
+  people = {
+    Name: '',
+    Phonenumber:0,
+    ChittiPID:'',
+    CreatedBy :0,
+    PeoplePID:0,
+  }
   constructor(private nav:NavController,
     private contacts: Contacts,
     public alertController: AlertController,
-    private route: ActivatedRoute) {     
+    private route: ActivatedRoute,
+    private peopleService : PeopleService) { 
 
       this.route.queryParams.subscribe(params => {
        this.chittidetails = params["chitticlk"];
-       
+       console.log(this.chittidetails);
     });
+    this.userpid =  localStorage.getItem("UserPID");
     
   }
   async presentAlert() {
@@ -54,9 +65,49 @@ export class PeoplePage implements OnInit {
   paymenthistory(){
     this.nav.navigateForward('ppaidhistory');
   }
+  async AddPeople(){
+    console.log("entered");
+    const alert = await this.alertController.create({ 
+      header:'Save Contact', 
+      inputs: [
+          {
+              name: 'name',
+              type: 'text',
+              placeholder: 'Name'
+          },
+          {
+            name: 'phonenumber',
+            type: 'number',
+            placeholder: 'Phone number'
+        }
+      ],
+      buttons: [
+          {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {
+                  console.log('Confirm Cancel');
+              }
+          }, {
+              text: 'Ok',
+              handler: (alertData) => {
+                this.people.Name = alertData.name;
+                this.people.Phonenumber = alertData.phonenumber;
+                this.people.ChittiPID = this.chittidetails.chittiPID;
+                this.people.CreatedBy = this.userpid;
+                console.log(this.people);
+                this.peopleService.create(this.people).subscribe((result) => {
 
-  openContacts(){
-  
+                });
+              }
+          }
+      ]
+  });
+  await alert.present();
+  }
+
+  openContacts(){  
     this.contacts.pickContact()
     .then((test : Contact) =>{
         this.name = test.displayName;

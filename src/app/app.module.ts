@@ -19,6 +19,7 @@ import { Contacts } from '@ionic-native/contacts';
 import { CommonModule } from '@angular/common';
 import { ChittiService } from './services/ChittiService.service';
 import { CommonToast } from './commonToastfile';
+import { PeopleService } from './services/PeopleService.service';
 
 @NgModule({
   declarations: [AppComponent,
@@ -42,6 +43,7 @@ import { CommonToast } from './commonToastfile';
   providers: [
     UserService,
     ChittiService,
+    PeopleService,
     CommonToast,
     Contacts,
     StatusBar,

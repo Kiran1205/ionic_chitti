@@ -45,7 +45,7 @@ export class RegisterPage implements OnInit {
          localStorage.clear();
          localStorage.setItem("UserPID", result.userPID);
          localStorage.setItem("UserName", result.name);
-
+        this.nav.navigateForward('home');
       },(error : HttpResponse<any>) => {         
             this.presentToast();          
       });
