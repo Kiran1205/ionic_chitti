@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { Contact, Contacts,ContactName, ContactField  } from '@ionic-native/contacts';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-people',
@@ -11,11 +12,17 @@ export class PeoplePage implements OnInit {
   items: string[];
   name: any;
   phonenumber: any;
-
+  chittidetails : any;
   constructor(private nav:NavController,
     private contacts: Contacts,
-    public alertController: AlertController) { 
-    this.initializeItems() ;
+    public alertController: AlertController,
+    private route: ActivatedRoute) {     
+
+      this.route.queryParams.subscribe(params => {
+       this.chittidetails = params["chitticlk"];
+       
+    });
+    
   }
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -26,27 +33,16 @@ export class PeoplePage implements OnInit {
     });
 
     await alert.present();
-  }
-
-  initializeItems() {
-    this.items = [
-      'Islamabad',
-      'Istanbul',
-      'Jakarta',
-      'Kiel',
-      'Kyoto',
-      'Le Havre',
-      'Lebanon',
-      'Lhasa',
-    ];
-  }
+  } 
 
   ngOnInit() {
   }
+
+
   getItems(ev) {    
     // set val to the value of the ev target
     var val = ev.target.value;
-    this.initializeItems() ;
+    
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
@@ -58,8 +54,9 @@ export class PeoplePage implements OnInit {
   paymenthistory(){
     this.nav.navigateForward('ppaidhistory');
   }
+
   openContacts(){
-    console.log("test");
+  
     this.contacts.pickContact()
     .then((test : Contact) =>{
         this.name = test.displayName;

@@ -18,6 +18,7 @@ import { UserService } from './services/UserService.service';
 import { Contacts } from '@ionic-native/contacts';
 import { CommonModule } from '@angular/common';
 import { ChittiService } from './services/ChittiService.service';
+import { CommonToast } from './commonToastfile';
 
 @NgModule({
   declarations: [AppComponent,
@@ -41,6 +42,7 @@ import { ChittiService } from './services/ChittiService.service';
   providers: [
     UserService,
     ChittiService,
+    CommonToast,
     Contacts,
     StatusBar,
     SplashScreen,

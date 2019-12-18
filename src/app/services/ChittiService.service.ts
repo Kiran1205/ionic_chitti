@@ -12,11 +12,11 @@ export class ChittiService extends BaseHttpService{
         this.baseRoute ='chitti'
     }  
 
-    login(data : any):Observable<any> {
-        return this.post('authenticate',data,this.COMMON_JSON_HEADER_REQUEST);
+    Create(data : any):Observable<any> {
+        return this.post('create',data,this.COMMON_JSON_HEADER_REQUEST);
     }
     getChittis(id : number)    {
-        return this.get(`${id}`,this.COMMON_JSON_HEADER_REQUEST);
+        return this.get('GetUserChitti\?userid='+id,this.COMMON_JSON_HEADER_REQUEST);
     }   
     
 }

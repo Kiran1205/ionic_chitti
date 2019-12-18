@@ -3,6 +3,9 @@ import { NavController, MenuController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
 import { ChittiService } from '../services/ChittiService.service';
 import { HttpResponse } from '@angular/common/http';
+import { CommonToast } from '../commonToastfile';
+import { NavigationExtras } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -19,7 +22,8 @@ export class HomePage implements OnInit {
   constructor(private nav:NavController,
     private menuCtrl: MenuController,
     private loadingController: LoadingController,
-    private chittiService : ChittiService
+    private chittiService : ChittiService,
+    private commonToast : CommonToast
     ) {
 
       this.UserPID = localStorage.getItem("UserPID");
@@ -28,40 +32,48 @@ export class HomePage implements OnInit {
     }
 
   ngOnInit() {
-
+    console.log("enter");
+    
   }
-   async chittihomepageloading(){
-
+   async chittihomepageloading(){   
     const loader =  await this.loadingController.create({
       message: 'Please wait...',
-      spinner: 'dots'
+      spinner: 'circles',
+      
     });
-
     await loader.present().then( () => {
       this.chittiService.getChittis(this.UserPID).subscribe((result) => {
-        this.chittisdetail = result;
+        this.chittisdetail = result;       
         loader.dismiss();
       },(error : HttpResponse<any>) => {         
-       console.log(error);         
+            this.commonToast.presentToast(error.statusText);
+            loader.dismiss();   
       });
 
     });
 
    }
+   ionViewWillEnter(){
+    this.chittihomepageloading().then();    
+   }
 
-   ionViewDidEnter() {    
-
-    this.chittihomepageloading();
-    this.menuCtrl.enable(true);
-    
+   ionViewDidEnter() {       
+    this.menuCtrl.enable(true);    
   }
 
   GoToNewChitti(){
     this.nav.navigateForward('chitti');
   }
 
-  ChittiClick(data){    
-    this.nav.navigateForward('people');
+  ChittiClick(chittidetail){    
+    
+    let navigationExtras: NavigationExtras = {
+      queryParams: {          
+          chitticlk: chittidetail
+      }
+  };
+  
+    this.nav.navigateForward('people',navigationExtras);
   }
   
 }

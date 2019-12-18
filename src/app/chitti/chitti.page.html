@@ -33,5 +33,5 @@
 </ion-content>
 
 <ion-content class="ion-padding" >
-    <ion-button expand="full" color="secondary">Save</ion-button>
+    <ion-button expand="full" color="secondary"  [disabled]="!chittiform.valid" (click)="Save()">Save</ion-button>
 </ion-content>
