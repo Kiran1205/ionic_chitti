@@ -65,13 +65,12 @@ export class HomePage implements OnInit {
     this.nav.navigateForward('chitti');
   }
 
-  ChittiClick(chittidetail){    
+  ChittiClick(item){    
     
     let navigationExtras: NavigationExtras = {
       queryParams: {          
-          chitticlk: chittidetail
-      }
-  };
+          chitticlk: item
+      } };
   
     this.nav.navigateForward('people',navigationExtras);
   }

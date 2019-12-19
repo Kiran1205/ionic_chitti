@@ -9,20 +9,25 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let item of items" (click)="paymenthistory()">
-      <ion-chip slot="start" outline color="{{item.color}}">
-        <ion-label>Jan</ion-label>
-      </ion-chip>      
+    <ion-item *ngFor="let item of paidhistory">
+      <!-- <ion-chip slot="start" outline color="sucess">
+        <ion-label>{{item.paidDate | date: 'MMM'}}</ion-label>
+      </ion-chip>       -->
+      <ion-avatar slot="start">
+        <img src="./assets/calendar.png">
+      </ion-avatar>
     <ion-label>      
-      <ion-label>{{item.title}}</ion-label> 
-      <ion-label color="medium"> {{item.note}}</ion-label>                 
-    </ion-label>           
+      <ion-label>{{item.paidDate | date: 'dd/MM/yyyy'}}</ion-label> 
+      <ion-label color="medium"> {{item.comments}}</ion-label>                    
+    </ion-label>
+    <ion-chip slot="end" outline color="secondary">
+      <ion-label>{{item.paidAmount}}</ion-label>
+    </ion-chip>           
   </ion-item>     
 </ion-list>
 
-
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="secondary">
+    <ion-fab-button color="secondary" (click) ="AddPayment()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
     

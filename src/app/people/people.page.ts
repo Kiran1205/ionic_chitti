@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { Contact, Contacts,ContactName, ContactField  } from '@ionic-native/contacts';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { PeopleService } from '../services/PeopleService.service';
 import { HttpResponse } from '@angular/common/http';
 import { CommonToast } from '../commonToastfile';
@@ -25,6 +25,7 @@ export class PeoplePage implements OnInit {
     createdBy :0,
     peoplePID:0,
   }
+  items: any;
   constructor(private nav:NavController,
     private contacts: Contacts,
     public alertController: AlertController,
@@ -50,30 +51,36 @@ export class PeoplePage implements OnInit {
   } 
 
   ngOnInit() {
-    this.getPeopleList();
+    this.getPeopleList();       
   }
 
 
-  // getItems(ev) {    
-  //   // set val to the value of the ev target
-  //   var val = ev.target.value;
-    
-  //   // if the value is an empty string don't filter the items
-  //   if (val && val.trim() != '') {
-  //     this.items = this.items.filter((item) => {
-  //       return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-  //     })
-  //   }
-  // }
+   getItems(ev) {    
+  // set val to the value of the ev target
+    var val = ev.target.value;
+    this.items = this.peoplelist;
+  // if the value is an empty string don't filter the items
+   if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+    })
+    }
+   }
 
-  paymenthistory(){
-    this.nav.navigateForward('ppaidhistory');
+  paymenthistory(peoplePID){   
+    let navigationExtras: NavigationExtras = {
+      queryParams: {          
+          PeoplePID: peoplePID,
+          chittiPID: this.chittidetails.chittiPID,
+          rolePID : this.chittidetails.rolePid
+      } };
+    this.nav.navigateForward('ppaidhistory',navigationExtras);
   }
 
   async AddPeople(){
     
     const alert = await this.alertController.create({ 
-      header:'Save Contact', 
+      header:'Add People', 
       inputs: [
           {
               name: 'name',
@@ -114,9 +121,14 @@ export class PeoplePage implements OnInit {
   await alert.present();
   }
 
+  gotoPaymenttaken(){
+    this.nav.navigateForward('payment-taken');
+  }
+
   getPeopleList(){
     this.peopleService.GetPeople(this.chittidetails).subscribe((result) =>{      
       this.peoplelist = result;
+      this.items = this.peoplelist; 
     },(error : HttpResponse<any>) => {         
       this.commonToast.presentToast(error.statusText);          
       });
@@ -129,6 +141,5 @@ export class PeoplePage implements OnInit {
         this.phonenumber = test.phoneNumbers[0].value        
         this. presentAlert();
     });
-
   }
 }

@@ -15,12 +15,15 @@
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
           <ion-fab-list side="top">
+            
+            <ion-fab-button  color="light" (click)="gotoPaymenttaken()">
+              <ion-icon name="card"></ion-icon>
+            </ion-fab-button>
+
             <ion-fab-button color="light" (click)="openContacts()">
               <ion-icon name="contacts"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button color="light">
-              <ion-icon name="card"></ion-icon>
-            </ion-fab-button>
+
             <ion-fab-button color="light" (click)="AddPeople()">
               <ion-icon name="contact">add</ion-icon>
             </ion-fab-button>              
@@ -28,7 +31,7 @@
         </ion-fab>
 
       <ion-list>
-        <ion-item *ngFor="let item of peoplelist" (click)="paymenthistory()">
+        <ion-item *ngFor="let item of items" (click)="paymenthistory(item.peoplePID)">
         <ion-avatar slot="start">
           <img src="./assets/avatar.png">
         </ion-avatar>

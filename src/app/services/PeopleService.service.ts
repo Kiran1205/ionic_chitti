@@ -19,5 +19,12 @@ export class PeopleService extends BaseHttpService{
     GetPeople(data : any):Observable<any> {
         return this.post('getPeople',data,this.COMMON_JSON_HEADER_REQUEST);
     }
+    GetPaidHist(id : number):Observable<any> {
+        return this.get('getpaidhistory\?peoplepid='+id,this.COMMON_JSON_HEADER_REQUEST);
+    }
+    SavePayment(data:any){
+        return this.post('paymentpaid',data,this.COMMON_JSON_HEADER_REQUEST);
+    }
+    
     
 }

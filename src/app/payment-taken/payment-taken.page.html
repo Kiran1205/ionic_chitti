@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+  <ion-title>Payment Taken</ion-title>
+</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+    <ion-item>
+      <ion-label>Select</ion-label>
+      <ion-select  okText="Okay" cancelText="Dismiss">
+
+        <ion-select-option *ngFor="let user of users" value="{{user.id}}" >{{user.first + ' ' + user.last}}</ion-select-option>
+              
+      </ion-select>
+    </ion-item>
+
+</ion-content>

@@ -40,6 +40,10 @@ const routes: Routes = [
   {
     path: 'managechitti',
     loadChildren: () => import('./managechitti/managechitti.module').then( m => m.ManagechittiPageModule)
+  },
+  {
+    path: 'payment-taken',
+    loadChildren: () => import('./payment-taken/payment-taken.module').then( m => m.PaymentTakenPageModule)
   }
 ];
 

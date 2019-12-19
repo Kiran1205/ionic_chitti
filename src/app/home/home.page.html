@@ -11,7 +11,10 @@
 
 <ion-content>
     <ion-list>
-        <ion-item *ngFor="let item of chittisdetail" (click)="ChittiClick(item)"> 
+        <ion-item *ngFor="let item of chittisdetail" (click)="ChittiClick(item)">
+          <ion-avatar slot="start">
+            <img src="./assets/rupee.jpg">
+          </ion-avatar> 
           <ion-label>
           <ion-label>{{item.name}}</ion-label>          
           <ion-label color="medium">Chitti : {{item.amount}}</ion-label>
