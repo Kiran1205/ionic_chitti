@@ -3,6 +3,9 @@ import { NavController, AlertController } from '@ionic/angular';
 import { Contact, Contacts,ContactName, ContactField  } from '@ionic-native/contacts';
 import { ActivatedRoute } from '@angular/router';
 import { PeopleService } from '../services/PeopleService.service';
+import { HttpResponse } from '@angular/common/http';
+import { CommonToast } from '../commonToastfile';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-people',
@@ -10,27 +13,27 @@ import { PeopleService } from '../services/PeopleService.service';
   styleUrls: ['./people.page.scss'],
 })
 export class PeoplePage implements OnInit {
-  items: string[];
+  peoplelist: any;
   name: any;
   phonenumber: any;
   chittidetails : any;
   userpid :any;
   people = {
-    Name: '',
-    Phonenumber:0,
-    ChittiPID:'',
-    CreatedBy :0,
-    PeoplePID:0,
+    name: '',
+    phonenumber:0,
+    chittiPID:'',
+    createdBy :0,
+    peoplePID:0,
   }
   constructor(private nav:NavController,
     private contacts: Contacts,
     public alertController: AlertController,
     private route: ActivatedRoute,
-    private peopleService : PeopleService) { 
+    private peopleService : PeopleService,
+    private commonToast : CommonToast ){ 
 
       this.route.queryParams.subscribe(params => {
-       this.chittidetails = params["chitticlk"];
-       console.log(this.chittidetails);
+       this.chittidetails = params["chitticlk"];       
     });
     this.userpid =  localStorage.getItem("UserPID");
     
@@ -47,26 +50,28 @@ export class PeoplePage implements OnInit {
   } 
 
   ngOnInit() {
+    this.getPeopleList();
   }
 
 
-  getItems(ev) {    
-    // set val to the value of the ev target
-    var val = ev.target.value;
+  // getItems(ev) {    
+  //   // set val to the value of the ev target
+  //   var val = ev.target.value;
     
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
+  //   // if the value is an empty string don't filter the items
+  //   if (val && val.trim() != '') {
+  //     this.items = this.items.filter((item) => {
+  //       return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+  //     })
+  //   }
+  // }
 
   paymenthistory(){
     this.nav.navigateForward('ppaidhistory');
   }
+
   async AddPeople(){
-    console.log("entered");
+    
     const alert = await this.alertController.create({ 
       header:'Save Contact', 
       inputs: [
@@ -92,19 +97,29 @@ export class PeoplePage implements OnInit {
           }, {
               text: 'Ok',
               handler: (alertData) => {
-                this.people.Name = alertData.name;
-                this.people.Phonenumber = alertData.phonenumber;
-                this.people.ChittiPID = this.chittidetails.chittiPID;
-                this.people.CreatedBy = this.userpid;
-                console.log(this.people);
+                this.people.name = alertData.name;
+                this.people.phonenumber = alertData.phonenumber;
+                this.people.chittiPID = this.chittidetails.chittiPID;
+                this.people.createdBy = this.userpid;
+              
                 this.peopleService.create(this.people).subscribe((result) => {
-
-                });
+                  this.getPeopleList();
+                },(error : HttpResponse<any>) => {         
+                  this.commonToast.presentToast(error.statusText);          
+            });
               }
           }
       ]
   });
   await alert.present();
+  }
+
+  getPeopleList(){
+    this.peopleService.GetPeople(this.chittidetails).subscribe((result) =>{      
+      this.peoplelist = result;
+    },(error : HttpResponse<any>) => {         
+      this.commonToast.presentToast(error.statusText);          
+      });
   }
 
   openContacts(){  

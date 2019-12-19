@@ -16,8 +16,8 @@ export class PeopleService extends BaseHttpService{
         return this.post('create',data,this.COMMON_JSON_HEADER_REQUEST);
     }
 
-    login(data : any):Observable<any> {
-        return this.post('authenticate',data,this.COMMON_JSON_HEADER_REQUEST);
+    GetPeople(data : any):Observable<any> {
+        return this.post('getPeople',data,this.COMMON_JSON_HEADER_REQUEST);
     }
     
 }

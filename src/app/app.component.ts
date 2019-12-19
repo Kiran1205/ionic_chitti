@@ -16,12 +16,19 @@ export class AppComponent {
       title: 'Home',
       url: '/home',
       icon: 'home'
-    },    
+    },  
+    {
+      title: 'Manage',
+      url: '/managechitti',
+      icon: 'settings'
+    },   
     {
       title: 'Logout',
       url: '/login',
       icon: 'person'
-    }
+    },  
+       
+    
   ];
 
   constructor(

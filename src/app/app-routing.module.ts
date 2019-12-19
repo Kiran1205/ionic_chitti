@@ -36,6 +36,10 @@ const routes: Routes = [
   {
     path: 'ppaidhistory',
     loadChildren: () => import('./ppaidhistory/ppaidhistory.module').then( m => m.PpaidhistoryPageModule)
+  },
+  {
+    path: 'managechitti',
+    loadChildren: () => import('./managechitti/managechitti.module').then( m => m.ManagechittiPageModule)
   }
 ];
 

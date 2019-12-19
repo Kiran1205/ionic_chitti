@@ -28,16 +28,16 @@
         </ion-fab>
 
       <ion-list>
-        <ion-item *ngFor="let item of items" (click)="paymenthistory()">
+        <ion-item *ngFor="let item of peoplelist" (click)="paymenthistory()">
         <ion-avatar slot="start">
           <img src="./assets/avatar.png">
         </ion-avatar>
         <ion-label>      
-          <ion-label>{{item}}</ion-label> 
-          <ion-label color="medium">8884684500</ion-label>                 
+          <ion-label>{{item.name}}</ion-label> 
+          <ion-label color="medium">{{item.phoneNumber}}</ion-label>                 
         </ion-label>  
         <ion-chip slot="end" outline color="secondary">
-          <ion-label>11</ion-label>
+          <ion-label>{{item.pendingAmount}}</ion-label>
         </ion-chip>
               
       </ion-item>     
