@@ -17,6 +17,9 @@ export class ChittiService extends BaseHttpService{
     }
     getChittis(id : number)    {
         return this.get('GetUserChitti\?userid='+id,this.COMMON_JSON_HEADER_REQUEST);
-    }   
+    }
+    GetAdminChitti(id : number)    {
+        return this.get('GetAdminChitti\?userid='+id,this.COMMON_JSON_HEADER_REQUEST);
+    }    
     
 }

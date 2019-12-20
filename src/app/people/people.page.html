@@ -10,7 +10,7 @@
 <ion-content>
     <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     
-      <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+      <ion-fab  *ngIf="chittidetails.rolePid ==1" horizontal="end" vertical="bottom" slot="fixed">
           <ion-fab-button color="secondary">
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>

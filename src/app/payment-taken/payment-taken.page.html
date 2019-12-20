@@ -8,14 +8,43 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
+  <form [formGroup]="paymentTakenform">
+    <ion-item>
+      <ion-label position="floating">Basic Amount</ion-label>
+      <ion-input class="form-control" formControlName="basicAmount" readonly></ion-input>
+   </ion-item>
+   <ion-item>
+    <ion-label position="floating">Auction Amount</ion-label>
+    <ion-input class="form-control" (change)='onChangeAmount($event.target.value)' formControlName="auctionAmount"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Amount</ion-label>
+    <ion-input class="form-control" formControlName="amount" readonly></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">AmountByPeople </ion-label>
+    <ion-input class="form-control" formControlName="amountByPeople" readonly></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Commission </ion-label>
+    <ion-input class="form-control" formControlName="commissionAmount" readonly></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Current Month </ion-label>
+    <ion-badge color="medium">{{Currentmonth()}}</ion-badge>    
+  </ion-item>
+  <ion-item>
+    <ion-label>Month</ion-label>
+    <ion-datetime displayFormat="MMMM YYYY" min="2018-06-04" max="2050-08-23"  class="form-control" formControlName="monthDate"></ion-datetime>
+  </ion-item>
     <ion-item>
       <ion-label>Select</ion-label>
-      <ion-select  okText="Okay" cancelText="Dismiss">
-
-        <ion-select-option *ngFor="let user of users" value="{{user.id}}" >{{user.first + ' ' + user.last}}</ion-select-option>
-              
+      <ion-select  okText="Okay" formControlName="peoplePID" cancelText="Dismiss">
+        <ion-select-option *ngFor="let user of peoplelist"  value="{{user.peoplePID}}" >{{user.name}}</ion-select-option>              
       </ion-select>
     </ion-item>
 
+    <ion-button (click) ="Save()"  [disabled]="!paymentTakenform.valid" expand="full" color="secondary">Save</ion-button>
+
+  </form>
 </ion-content>

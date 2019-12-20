@@ -3,6 +3,7 @@ import { NavController, MenuController, AlertController } from '@ionic/angular';
 import { PeopleService } from '../services/PeopleService.service';
 import { ActivatedRoute } from '@angular/router';
 import { PaymentPaid } from './PaymentPaid';
+import { PaymentService } from '../services/PaymentService.service';
 
 @Component({
   selector: 'app-ppaidhistory',
@@ -19,7 +20,7 @@ export class PpaidhistoryPage implements OnInit {
   
   constructor(private nav:NavController,
     public menuCtrl: MenuController,
-    private peopleservice : PeopleService,
+    private paymentService : PaymentService,
     private route: ActivatedRoute,
     private alertController: AlertController) {
 
@@ -45,11 +46,14 @@ export class PpaidhistoryPage implements OnInit {
             name: 'Comments',
             type: 'text',
             placeholder: 'comment'
+           
           },
           {
             name: 'Date',
             type: 'date',
-            placeholder: 'Payment Date'
+            placeholder: 'Payment Date',
+            value : new Date()           
+           
           }
       ],
       buttons: [
@@ -72,8 +76,8 @@ export class PpaidhistoryPage implements OnInit {
                 paymentpaid.ChittiPID = this.chittiPID;
                paymentpaid.CreatedBy = this.userpid;
                 paymentpaid.NotificationTypePID = this.rolePID  ==1 ? 1:2; 
-                this.peopleservice.SavePayment(paymentpaid).subscribe( () => {
-                  this.peopleservice.GetPaidHist(this.peoplePID).subscribe((result) => {
+                this.paymentService.SavePayment(paymentpaid).subscribe( () => {
+                  this.paymentService.GetPaidHist(this.peoplePID).subscribe((result) => {
                     this.paidhistory = result;
                   });
                 });
@@ -85,7 +89,7 @@ export class PpaidhistoryPage implements OnInit {
   }
 
   ngOnInit() {
-    this.peopleservice.GetPaidHist(this.peoplePID).subscribe((result) => {
+    this.paymentService.GetPaidHist(this.peoplePID).subscribe((result) => {
       this.paidhistory = result;
     });
   }

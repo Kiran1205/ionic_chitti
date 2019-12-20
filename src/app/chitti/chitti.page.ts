@@ -30,8 +30,8 @@ export class ChittiPage implements OnInit {
         [Validators.maxLength(2),
           Validators.minLength(2),
           Validators.pattern('[0-9]*'),Validators.required])],
-      Amount : ['',Validators.required],
-      Commision:['',Validators.required],
+      Amount :['',Validators.compose([Validators.pattern('[0-9]*'),Validators.required])],
+      Commission:['',Validators.compose([Validators.pattern('[0-9]*'),Validators.required])],
       StartDate:['',Validators.required],
       createdBy : localStorage.getItem("UserPID")
     });

@@ -21,12 +21,17 @@ export class AppComponent {
       title: 'Manage',
       url: '/managechitti',
       icon: 'settings'
+    }, 
+    {
+      title :'Notes',
+      url: '/notes',
+      icon: 'clipboard'
     },   
     {
       title: 'Logout',
       url: '/login',
       icon: 'person'
-    },  
+    }
        
     
   ];

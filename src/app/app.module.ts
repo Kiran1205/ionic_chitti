@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { ChittiService } from './services/ChittiService.service';
 import { CommonToast } from './commonToastfile';
 import { PeopleService } from './services/PeopleService.service';
+import { PaymentService } from './services/PaymentService.service';
 
 @NgModule({
   declarations: [AppComponent,
@@ -44,6 +45,7 @@ import { PeopleService } from './services/PeopleService.service';
     UserService,
     ChittiService,
     PeopleService,
+    PaymentService,
     CommonToast,
     Contacts,
     StatusBar,

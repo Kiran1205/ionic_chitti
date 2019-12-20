@@ -34,7 +34,8 @@ export class PeoplePage implements OnInit {
     private commonToast : CommonToast ){ 
 
       this.route.queryParams.subscribe(params => {
-       this.chittidetails = params["chitticlk"];       
+       this.chittidetails = params["chitticlk"]; 
+            
     });
     this.userpid =  localStorage.getItem("UserPID");
     
@@ -77,8 +78,7 @@ export class PeoplePage implements OnInit {
     this.nav.navigateForward('ppaidhistory',navigationExtras);
   }
 
-  async AddPeople(){
-    
+  async AddPeople(){    
     const alert = await this.alertController.create({ 
       header:'Add People', 
       inputs: [
@@ -122,7 +122,12 @@ export class PeoplePage implements OnInit {
   }
 
   gotoPaymenttaken(){
-    this.nav.navigateForward('payment-taken');
+    let navigationExtras: NavigationExtras = {
+      queryParams: {  
+          chittiPID: this.chittidetails.chittiPID,
+          rolePID : this.chittidetails.rolePid
+      } };
+    this.nav.navigateForward('payment-taken',navigationExtras);
   }
 
   getPeopleList(){
@@ -138,7 +143,13 @@ export class PeoplePage implements OnInit {
     this.contacts.pickContact()
     .then((test : Contact) =>{
         this.name = test.displayName;
-        this.phonenumber = test.phoneNumbers[0].value        
+        let phone = test.phoneNumbers[0].value;
+        if(phone.slice(0,1)=='+' || phone.slice(0,1)=='0'){
+          this.phonenumber=phone.replace(/[^a-zA-Z0-9+]/g, "");
+      }
+      else {
+          this.phonenumber=phone.replace(/[^a-zA-Z0-9]/g, "");         
+      }        
         this. presentAlert();
     });
   }
