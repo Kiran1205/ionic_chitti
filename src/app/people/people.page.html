@@ -3,7 +3,11 @@
         <ion-buttons slot="start">
             <ion-back-button></ion-back-button>
           </ion-buttons>
-    <ion-title>People</ion-title>
+    <ion-title>People</ion-title>   
+    <ion-button color="sec" slot="end" (click)="onNotificationsClick()"  class="notification-icon-button">
+      <ion-badge class="notification-badge">10</ion-badge>
+      <ion-icon slot="icon-only" name="notifications"></ion-icon>
+  </ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -31,19 +35,31 @@
         </ion-fab>
 
       <ion-list>
-        <ion-item *ngFor="let item of items" (click)="paymenthistory(item.peoplePID)">
+        <ion-item-sliding *ngFor="let item of items">
+          
+        <ion-item  (click)="paymenthistory(item.peoplePID)">
         <ion-avatar slot="start">
-          <img src="./assets/avatar.png">
-        </ion-avatar>
+          <text-avatar [text]="item.name"></text-avatar>
+        </ion-avatar>     
         <ion-label>      
           <ion-label>{{item.name}}</ion-label> 
-          <ion-label color="medium">{{item.phoneNumber}}</ion-label>                 
-        </ion-label>  
-        <ion-chip slot="end" outline color="secondary">
-          <ion-label>{{item.pendingAmount}}</ion-label>
+          <ion-label color="medium">Ph:{{item.phoneNumber}}</ion-label>                        
+        </ion-label> 
+       
+        <ion-chip slot="end" outline color="danger">
+         <ion-label color="danger">{{item.pendingAmount}}</ion-label>   
         </ion-chip>
               
-      </ion-item>     
+      </ion-item>
+      <ion-item-options side="end" >
+        <ion-item-option  *ngIf="chittidetails.rolePid ==1" color ="danger" (click)="DeletePeople(item)">
+          <ion-icon  slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>       
+        <ion-item-option (click)="AddPayment(item)">
+          <ion-icon  slot="icon-only" name="card"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>     
     </ion-list>
 
 </ion-content>

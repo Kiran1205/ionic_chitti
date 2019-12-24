@@ -14,8 +14,8 @@
         <ion-label>{{item.paidDate | date: 'MMM'}}</ion-label>
       </ion-chip>       -->
       <ion-avatar slot="start">
-        <img src="./assets/calendar.png">
-      </ion-avatar>
+        <text-avatar [text]="item.name" [signlecolor] = "true" ></text-avatar>
+      </ion-avatar>   
     <ion-label>      
       <ion-label>{{item.paidDate | date: 'dd/MM/yyyy'}}</ion-label> 
       <ion-label color="medium"> {{item.comments}}</ion-label>                    

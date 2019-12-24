@@ -5,26 +5,44 @@
     </ion-buttons>
     <ion-title>
       Home
-    </ion-title>
+    </ion-title>   
   </ion-toolbar>
+  
 </ion-header>
 
-<ion-content>
+<ion-content>  
     <ion-list>
-        <ion-item *ngFor="let item of chittisdetail" (click)="ChittiClick(item)">
+      <ion-item-sliding *ngFor="let item of chittisdetail">
+        <ion-item-options side="start" *ngIf="item.rolePid ==1">         
+          <ion-item-option color="danger" (click)="presentAlert(item)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>            
+          </ion-item-option>
+        </ion-item-options>
+    
+        <ion-item (click)="ChittiClick(item)">
           <ion-avatar slot="start">
-            <img src="./assets/rupee.jpg">
+            <text-avatar [text]="item.name" [signlecolor] = "true"></text-avatar>
           </ion-avatar> 
           <ion-label>
           <ion-label>{{item.name}}</ion-label>          
           <ion-label color="medium">Chitti : {{item.amount}}</ion-label>
-          <ion-label color="medium">Pending amount : {{item.pendingAmount}}</ion-label>    
-        </ion-label>       
-           
+          <ion-label color="medium">End Date : {{item.endDate | date:'MMM/dd/yyyy'}}</ion-label>
+          <ion-label *ngIf="item.rolePid ==1" color="medium">Pending: {{item.pendingAmount}}</ion-label>    
+        </ion-label>  
             <ion-chip slot="end" outline color="secondary">
               <ion-label>{{item.pendingMonths}}</ion-label>
-            </ion-chip>           
-        </ion-item>
+            </ion-chip>   
+        </ion-item>       
+        <ion-item-options side="end" >
+          <ion-item-option color="success" (click)="CallEdit(item)" *ngIf="item.rolePid ==1">
+            <ion-icon slot="icon-only"  name="create"></ion-icon>
+          </ion-item-option>
+          <ion-item-option (click)="favorite(item)">
+            <ion-icon  slot="icon-only" name="calendar"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+        
       </ion-list>
 
   <ion-fab  horizontal="end"  vertical="bottom" slot="fixed">

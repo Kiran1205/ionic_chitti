@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController, NavController, ToastController } from '@ionic/angular';
+import { MenuController, NavController, ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/UserService.service';
 import { HttpResponse } from '@angular/common/http';
@@ -15,7 +15,9 @@ export class RegisterPage implements OnInit {
     private nav:NavController,
     public menuCtrl: MenuController,
     public userservice : UserService,
-    public toastController: ToastController) { 
+    public toastController: ToastController, 
+    public alertController: AlertController,
+    private loadingController: LoadingController) { 
       
     }
 
@@ -32,23 +34,41 @@ export class RegisterPage implements OnInit {
       });
     }
     
-    async presentToast() {
+    async presentToast(error) {
       const toast = await this.toastController.create({
-        message: 'Unabe to Process request',
+        message: error,
         duration: 2000
       });
       toast.present();
     }
 
-    onRegister(){
+    async onRegister(){
+      const loader =  await this.loadingController.create({
+        message: 'Please wait...',
+        spinner: 'circles',
+        
+      });
+      await loader.present().then( () => {
       this.userservice.create(this.registerform.value).subscribe((result : any ) =>{       
          localStorage.clear();
          localStorage.setItem("UserPID", result.userPID);
          localStorage.setItem("UserName", result.name);
         this.nav.navigateForward('home');
+        loader.dismiss();  
       },(error : HttpResponse<any>) => {         
-            this.presentToast();          
+        loader.dismiss();            
+        this.presentAlert(JSON.stringify(error));
+      });      
+    });
+
+    }
+    async presentAlert(error) {
+      const alert = await this.alertController.create({
+        header: 'Alert',
+        subHeader: error,     
+        buttons: ['OK']
       });
+      await alert.present();
     }
 
   ionViewDidEnter() { 

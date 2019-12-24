@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ListPage } from './list/list.page';
 import { ChittiPage } from './chitti/chitti.page';
 import { PeoplePage } from './people/people.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,15 +20,21 @@ import { ChittiService } from './services/ChittiService.service';
 import { CommonToast } from './commonToastfile';
 import { PeopleService } from './services/PeopleService.service';
 import { PaymentService } from './services/PaymentService.service';
+import { BackgroundGenerator } from './ColorGenerator';
+import { TextAvatarDirective } from './text-background';
+import { ManagechittiPage } from './managechitti/managechitti.page';
+import { PpaidhistoryPage } from './ppaidhistory/ppaidhistory.page';
 
 @NgModule({
-  declarations: [AppComponent,
-    ListPage,
+  declarations: [AppComponent,    
     ChittiPage,
     PeoplePage,
     LoginPage,
     RegisterPage,
-    HomePage
+    HomePage,
+    ManagechittiPage,
+    PpaidhistoryPage,
+    TextAvatarDirective
     ],
   entryComponents: [],
   imports: [
@@ -50,6 +55,7 @@ import { PaymentService } from './services/PaymentService.service';
     Contacts,
     StatusBar,
     SplashScreen,
+    BackgroundGenerator,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

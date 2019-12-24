@@ -66,13 +66,12 @@ export class PaymentTakenPage implements OnInit {
   });
 }
 onChangeAmount(data){
-  console.log(data);
+  
   this.paymentTakenform.patchValue({amount: this.paymentTaken.amount - data,
     amountByPeople: (this.paymentTaken.amount + this.paymentTaken.commissionAmount- data)/this.totalpeople}); 
 }
 Save(){
-  console.log(this.paymentTakenform.value);
-  this.paymentservice.SavePaymentTaken(this.paymentTakenform.value).subscribe(() => {
+   this.paymentservice.SavePaymentTaken(this.paymentTakenform.value).subscribe(() => {
     this.nav.navigateBack('home');
   });
 }

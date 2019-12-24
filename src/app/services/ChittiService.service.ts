@@ -15,11 +15,20 @@ export class ChittiService extends BaseHttpService{
     Create(data : any):Observable<any> {
         return this.post('create',data,this.COMMON_JSON_HEADER_REQUEST);
     }
-    getChittis(id : number)    {
+    getChittis(id : number):Observable<any>    {
         return this.get('GetUserChitti\?userid='+id,this.COMMON_JSON_HEADER_REQUEST);
     }
-    GetAdminChitti(id : number)    {
+    GetAdminChitti(id : number)  :Observable<any>    {
         return this.get('GetAdminChitti\?userid='+id,this.COMMON_JSON_HEADER_REQUEST);
-    }    
+    } 
+    load(id : number)    :Observable<any>    {
+        return this.get(`${id}`,this.COMMON_JSON_HEADER_REQUEST);
+    }
+    Delete(id : number)    :Observable<any>    {
+        return this.delete(`${id}`,this.COMMON_JSON_HEADER_REQUEST);
+    }
+    Update(data : any):Observable<any> {
+        return this.put('update',data,this.COMMON_JSON_HEADER_REQUEST);
+    }      
     
 }

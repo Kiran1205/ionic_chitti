@@ -10,14 +10,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let item of chittilist">
+  <ion-item *ngFor="let item of chittilist" (click)="CallAction(item)">
+    <ion-avatar slot="start">
+      <text-avatar [text]="item.name" [signlecolor] = "true"></text-avatar>
+    </ion-avatar> 
     <ion-label>
       <ion-label>{{item.name}}</ion-label>
-      <ion-label color="medium">Amount : {{item.amount}}</ion-label>  
-  </ion-label>
-  <ion-label>
-   
-   
+      <ion-label color="medium">Amount : {{item.amount}}</ion-label> 
+      <ion-label color="medium">Start Date : {{item.startDate|date:'yyyy/MMM/dd'}}</ion-label>
+      <ion-label color="medium">EndDate : {{item.endDate|date:'yyyy/MMM/dd'}}</ion-label>   
   </ion-label>
   </ion-item>
 </ion-content>

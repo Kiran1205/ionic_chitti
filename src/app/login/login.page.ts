@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, MenuController, ToastController } from '@ionic/angular';
+import { NavController, MenuController, ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/UserService.service';
 import { HttpResponse } from '@angular/common/http';
@@ -15,8 +15,9 @@ export class LoginPage implements OnInit {
                private nav:NavController,
                public menuCtrl: MenuController,
                public userservice : UserService,
-               public toastController: ToastController
-               ) {
+               public toastController: ToastController,
+               public alertController: AlertController,
+               private loadingController: LoadingController) {
                
     }
 
@@ -39,32 +40,45 @@ export class LoginPage implements OnInit {
     this.menuCtrl.swipeGesture(false);
   }
 
-  async presentToast() {
+  async presentToast(data) {
     const toast = await this.toastController.create({
-      message: 'login failed,please try again.',
+      message: data,
       duration: 2000
     });
     toast.present();
   }
-  
-  GoToHome(){
 
+  async GoToHome(){
         if(!this.loginform.valid)
         return;
         
-        this.userservice.login(this.loginform.value).subscribe((result : any ) =>{      
+        const loader =  await this.loadingController.create({
+          message: 'Please wait...',
+          spinner: 'circles',
           
-
-          localStorage.setItem("UserPID", result.userPID);
-          localStorage.setItem("UserName", result.name);
-
-          this.nav.navigateForward("home");
-        
-      },() => {      
-               this.presentToast();
-      });
-
+        });
+        await loader.present().then( () => {
+          this.userservice.login(this.loginform.value).subscribe((result : any ) =>{ 
+           
+            localStorage.setItem("UserPID", result.userPID);
+            localStorage.setItem("UserName", result.name);
     
+            this.nav.navigateForward("home");     
+            loader.dismiss();
+          },(error : HttpResponse<any>) => {         
+            this.presentAlert(JSON.stringify(error));
+                loader.dismiss();   
+          });
+    
+        });
+  }
+  async presentAlert(error) {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: error,     
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   gotoregister(){

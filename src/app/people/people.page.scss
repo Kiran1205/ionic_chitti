@@ -1,0 +1,18 @@
+ion-toolbar {
+    .notification-icon-button {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;  
+      background-color: transparent; 
+      ion-badge {
+        position: absolute;
+        background: #f70b0b;
+        border-radius: 50%;
+        opacity: 0.9;
+        top: 0.1rem;
+        right: 0.2rem;
+      }
+    }
+  }

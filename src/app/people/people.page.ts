@@ -6,6 +6,8 @@ import { PeopleService } from '../services/PeopleService.service';
 import { HttpResponse } from '@angular/common/http';
 import { CommonToast } from '../commonToastfile';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { PaymentService } from '../services/PaymentService.service';
+import { PaymentPaid } from '../ppaidhistory/PaymentPaid';
 
 @Component({
   selector: 'app-people',
@@ -31,7 +33,8 @@ export class PeoplePage implements OnInit {
     public alertController: AlertController,
     private route: ActivatedRoute,
     private peopleService : PeopleService,
-    private commonToast : CommonToast ){ 
+    private commonToast : CommonToast,
+    private paymentService : PaymentService, ){ 
 
       this.route.queryParams.subscribe(params => {
        this.chittidetails = params["chitticlk"]; 
@@ -79,6 +82,7 @@ export class PeoplePage implements OnInit {
   }
 
   async AddPeople(){    
+    
     const alert = await this.alertController.create({ 
       header:'Add People', 
       inputs: [
@@ -103,12 +107,8 @@ export class PeoplePage implements OnInit {
               }
           }, {
               text: 'Ok',
-              handler: (alertData) => {
-                this.people.name = alertData.name;
-                this.people.phonenumber = alertData.phonenumber;
-                this.people.chittiPID = this.chittidetails.chittiPID;
-                this.people.createdBy = this.userpid;
-              
+              handler: (alertData) => {               
+                this.addpeople(alertData.name,alertData.phonenumber);
                 this.peopleService.create(this.people).subscribe((result) => {
                   this.getPeopleList();
                 },(error : HttpResponse<any>) => {         
@@ -119,6 +119,53 @@ export class PeoplePage implements OnInit {
       ]
   });
   await alert.present();
+  }
+  addpeople(name,phonenumber){
+    this.people.name = name;
+    this.people.phonenumber = phonenumber;
+    this.people.chittiPID = this.chittidetails.chittiPID;
+    this.people.createdBy = this.userpid;
+  }
+  async AddContactToPeople(name,phonenumber) {
+    const alert = await this.alertController.create({
+      header: 'Add',
+      inputs: [               
+         {
+          name: 'displayName',
+          type: 'text',         
+          value: name,
+          placeholder: 'Name'
+        },
+        {
+          name: 'phonenumber',
+          value: phonenumber,
+          type: 'number',
+          placeholder: 'PhoneNumber'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (alertData) => {
+            this.addpeople(alertData.displayName,alertData.phonenumber);
+              this.peopleService.create(this.people).subscribe((result) => {
+                this.getPeopleList();
+              },(error : HttpResponse<any>) => {         
+                this.commonToast.presentToast(error.statusText);          
+          });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   gotoPaymenttaken(){
@@ -141,16 +188,100 @@ export class PeoplePage implements OnInit {
 
   openContacts(){  
     this.contacts.pickContact()
-    .then((test : Contact) =>{
-        this.name = test.displayName;
+    .then((test : Contact) =>{       
         let phone = test.phoneNumbers[0].value;
-        if(phone.slice(0,1)=='+' || phone.slice(0,1)=='0'){
-          this.phonenumber=phone.replace(/[^a-zA-Z0-9+]/g, "");
+        if(phone.slice(0,1)=='+'){
+          this.phonenumber=phone.replace("+91", "");
       }
+     else if(phone.slice(0,1)=='0'){
+        this.phonenumber=phone.replace("0", "");
+    }
       else {
           this.phonenumber=phone.replace(/[^a-zA-Z0-9]/g, "");         
-      }        
-        this. presentAlert();
+      }  
+        this.AddContactToPeople(test.displayName,this.phonenumber);
+     
     });
+  }
+  async AddPayment(item){    
+    const alert = await this.alertController.create({ 
+      header:'Payement Details', 
+      inputs: [
+          {
+              name: 'Amount',
+              type: 'number',
+              placeholder: 'Amount'
+          },
+          {
+            name: 'Comments',
+            type: 'text',
+            placeholder: 'comment'
+           
+          },
+          {
+            name: 'Date',
+            type: 'date',
+            placeholder: 'Payment Date',
+            value : new Date()           
+           
+          }
+      ],
+      buttons: [
+          {
+              text: 'Cancel',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {
+                  console.log('Confirm Cancel');
+              }
+          }, {
+              text: 'Ok',
+              handler: (alertData) => {
+                const paymentpaid = new PaymentPaid();
+                paymentpaid.Comments = alertData.Comments;
+                paymentpaid.PaidAmount = alertData.Amount;
+                paymentpaid.PeoplePID =  item.peoplePID;
+                paymentpaid.PaidDate = alertData.Date;
+                paymentpaid.ChittiPID = this.chittidetails.chittiPID;
+                paymentpaid.CreatedBy = this.userpid;
+                paymentpaid.NotificationTypePID = this.chittidetails.rolePID  ==1 ? 1:2; 
+                this.paymentService.SavePayment(paymentpaid).subscribe( () => {
+                  this.getPeopleList();
+                });
+              }
+          }
+      ]
+  });
+  await alert.present();
+  }
+  
+
+  DeletePeople(iten){
+    this.DeleteAlert(iten);
+  }
+  async DeleteAlert(data) {
+    const alert = await this.alertController.create({
+      header: data.name ,
+      subHeader: 'Delete Confirmation?',
+      buttons: [
+        {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+                console.log('Confirm Cancel');
+            }
+        }, {
+            text: 'Ok',
+            handler: () => {
+              this.peopleService.Delete( data.peoplePID).subscribe((result) => {
+                this.getPeopleList();
+              });
+            }
+        }
+    ]
+    });
+
+    await alert.present();
   }
 }

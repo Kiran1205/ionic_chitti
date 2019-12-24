@@ -11,7 +11,9 @@ export class PeopleService extends BaseHttpService{
         super(httpClient);
         this.baseRoute ='people'
     }
-
+    Delete(id : number)    :Observable<any>    {
+        return this.delete(`${id}`,this.COMMON_JSON_HEADER_REQUEST);
+    }
     create(data : any):Observable<any>{
         return this.post('create',data,this.COMMON_JSON_HEADER_REQUEST);
     }

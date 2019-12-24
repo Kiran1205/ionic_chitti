@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { ListPage } from './list/list.page';
 import { PeoplePage } from './people/people.page';
 import { ChittiPage } from './chitti/chitti.page';
 import { LoginPage } from './login/login.page';
 import { RegisterPage } from './register/register.page';
 import { HomePage } from './home/home.page';
+import { ManagechittiPage } from './managechitti/managechitti.page';
+import { PpaidhistoryPage } from './ppaidhistory/ppaidhistory.page';
 
 
 const routes: Routes = [
@@ -13,10 +14,7 @@ const routes: Routes = [
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
-  },
-  {
-    path: 'list',component: ListPage
-  },
+  }, 
   {
     path: 'people', component : PeoplePage    
   },
@@ -34,12 +32,10 @@ const routes: Routes = [
     path: 'home',component:HomePage
   },
   {
-    path: 'ppaidhistory',
-    loadChildren: () => import('./ppaidhistory/ppaidhistory.module').then( m => m.PpaidhistoryPageModule)
+    path: 'ppaidhistory',component:PpaidhistoryPage
   },
   {
-    path: 'managechitti',
-    loadChildren: () => import('./managechitti/managechitti.module').then( m => m.ManagechittiPageModule)
+    path: 'managechitti',component:ManagechittiPage
   },
   {
     path: 'payment-taken',
