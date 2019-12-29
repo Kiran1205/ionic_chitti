@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBase : "https://localhost:44353/api"
+  apiBase : "https://ctrackapi.azurewebsites.net/api"
 };
 
 /*

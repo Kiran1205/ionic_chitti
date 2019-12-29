@@ -29,6 +29,9 @@ export class ChittiService extends BaseHttpService{
     }
     Update(data : any):Observable<any> {
         return this.put('update',data,this.COMMON_JSON_HEADER_REQUEST);
-    }      
+    } 
+    getChittiSchedule(id : number)    :Observable<any>    {
+        return this.get('getChittiSchedule\?id='+id,this.COMMON_JSON_HEADER_REQUEST);
+    }     
     
 }

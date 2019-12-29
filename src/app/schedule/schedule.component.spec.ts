@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ManagechittiPage } from './managechitti.page';
+import { ScheduleComponent } from './schedule.component';
 
-describe('ManagechittiPage', () => {
-  let component: ManagechittiPage;
-  let fixture: ComponentFixture<ManagechittiPage>;
+describe('ScheduleComponent', () => {
+  let component: ScheduleComponent;
+  let fixture: ComponentFixture<ScheduleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManagechittiPage ],
+      declarations: [ ScheduleComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ManagechittiPage);
+    fixture = TestBed.createComponent(ScheduleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

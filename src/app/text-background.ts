@@ -1,4 +1,4 @@
-import { Input, SimpleChanges, Component, ViewChild } from '@angular/core';
+import { Input, SimpleChanges, Component, ViewChild, Injectable } from '@angular/core';
 import { BackgroundGenerator } from './ColorGenerator';
 
 
@@ -8,6 +8,7 @@ import { BackgroundGenerator } from './ColorGenerator';
     <div class="u-text-avatar" [ngStyle]="styles">{{ firstLetter }}</div>
   `  
 })
+@Injectable()
 export class TextAvatarDirective {
   @Input() text: string;
   @Input() color: string;

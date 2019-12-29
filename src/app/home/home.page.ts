@@ -34,11 +34,14 @@ export class HomePage implements OnInit {
     }
 
   ngOnInit() {
-    console.log("enter");
     
   }
-  onHold(){
-    console.log("Holded");
+  scheduleClick(data){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {  
+          chittiPID: data.chittiPID         
+      } };
+    this.nav.navigateForward('schedule',navigationExtras);
   }
    async chittihomepageloading(){   
     // const loader =  await this.loadingController.create({
@@ -106,10 +109,7 @@ export class HomePage implements OnInit {
     await alert.present();
   }
   
-  unread(data){
-console.log(data);
-  }
-
+ 
   CallEdit(data: any) {
     let navigationExtras: NavigationExtras = {
       queryParams: {  

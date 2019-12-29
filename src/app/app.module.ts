@@ -22,8 +22,9 @@ import { PeopleService } from './services/PeopleService.service';
 import { PaymentService } from './services/PaymentService.service';
 import { BackgroundGenerator } from './ColorGenerator';
 import { TextAvatarDirective } from './text-background';
-import { ManagechittiPage } from './managechitti/managechitti.page';
 import { PpaidhistoryPage } from './ppaidhistory/ppaidhistory.page';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { NotesPage } from './notes/notes.page';
 
 @NgModule({
   declarations: [AppComponent,    
@@ -32,9 +33,10 @@ import { PpaidhistoryPage } from './ppaidhistory/ppaidhistory.page';
     LoginPage,
     RegisterPage,
     HomePage,
-    ManagechittiPage,
     PpaidhistoryPage,
-    TextAvatarDirective
+    NotesPage,
+    TextAvatarDirective,
+    ScheduleComponent
     ],
   entryComponents: [],
   imports: [

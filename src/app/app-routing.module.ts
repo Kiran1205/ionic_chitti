@@ -5,8 +5,9 @@ import { ChittiPage } from './chitti/chitti.page';
 import { LoginPage } from './login/login.page';
 import { RegisterPage } from './register/register.page';
 import { HomePage } from './home/home.page';
-import { ManagechittiPage } from './managechitti/managechitti.page';
 import { PpaidhistoryPage } from './ppaidhistory/ppaidhistory.page';
+import { ScheduleComponent } from './schedule/schedule.component';
+import { NotesPage } from './notes/notes.page';
 
 
 const routes: Routes = [
@@ -33,17 +34,16 @@ const routes: Routes = [
   },
   {
     path: 'ppaidhistory',component:PpaidhistoryPage
-  },
+  }, 
   {
-    path: 'managechitti',component:ManagechittiPage
+    path:'schedule',component:ScheduleComponent
   },
   {
     path: 'payment-taken',
     loadChildren: () => import('./payment-taken/payment-taken.module').then( m => m.PaymentTakenPageModule)
   },
   {
-    path: 'notes',
-    loadChildren: () => import('./notes/notes.module').then( m => m.NotesPageModule)
+    path: 'notes',component:NotesPage
   }
 ];
 
